@@ -1,8 +1,7 @@
 import React, { useState, createRef } from "react";
 import { SafeAreaView, Dimensions, View, ScrollView, TouchableOpacity, StatusBar, Image, StyleSheet, Text, TextInput } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
-// import { MaterialIcons } from '@expo/vector-icons';
-// import { Input } from '@rneui/themed';
+
 
 const { width } = Dimensions.get('window');
 
@@ -251,12 +250,7 @@ const signupView = ({ navigation }) => {
     function header() {
         return (
             <View style={styles.headerWrapStyle}>
-                {/* <MaterialIcons
-                    name="arrow-back-ios"
-                    color={Colors.blackColor}
-                    size={22}
-                    onPress={() => navigation.pop()}
-                /> */}
+              
             </View>
         )
     }

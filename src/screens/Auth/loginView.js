@@ -1,8 +1,7 @@
 import React, { useState, createRef, useCallback } from "react";
 import { SafeAreaView, Dimensions, View, ScrollView, BackHandler, TouchableOpacity, StatusBar, Image, StyleSheet, Text, TextInput } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
-// import { MaterialIcons } from '@expo/vector-icons';
-// import { Input } from '@rneui/themed';
+
 import { useFocusEffect } from "@react-navigation/native";
 
 const { width } = Dimensions.get('window');
