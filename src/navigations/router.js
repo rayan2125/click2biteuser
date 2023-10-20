@@ -14,6 +14,9 @@ import ProductsScreen from '../screens/products/productsScreen'
 import SelectDeliveryAddressScreen from '../screens/selectDeliveryAddress/selectDeliveryAddressScreen'
 import SelectPaymentMethodScreen from '../screens/selectPaymentMethod/selectPaymentMethodScreen'
 import OrderPlacedInfoScreen from '../screens/orderPlacedInfo/orderPlacedInfoScreen'
+import Subcriptions from '../screens/Subcriptions/Subcriptions'
+import AddressScreen from '../screens/address/addressScreen'
+import AddNewAddressScreen from '../screens/addNewAddress/addNewAddressScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -30,6 +33,9 @@ const Router = () => {
     <Stack.Screen name='SelectDeliveryAddress' component={SelectDeliveryAddressScreen}/>
     <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen}/>
     <Stack.Screen name='OrderPlaceInfo' component={OrderPlacedInfoScreen}/>
+    <Stack.Screen name='Subcriptions' component={Subcriptions}/>
+    <Stack.Screen name='addresses' component={AddressScreen}/>
+    <Stack.Screen name='AddNewAddress' component={AddNewAddressScreen}/>
    </Stack.Navigator>
   )
 }

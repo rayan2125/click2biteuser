@@ -4,6 +4,7 @@ import { Colors, Fonts, Sizes, } from "../../constants/styles";
 
 
 import { Snackbar } from "react-native-paper";
+import FoodOfDifferentCategoriesScreen from "../foodOfDifferentCategories/foodOfDifferentCategoriesScreen";
 
 const { width } = Dimensions.get('window');
 
@@ -22,23 +23,90 @@ const popularItemsList = [
     },
 ];
 
-const reviewsList = [
+const otherAvailableFoodList = [
     {
         id: '1',
-        peopleImage: require('../../assets/images/users/user1.png'),
-        peopleName: 'George Smith',
-        reviewDate: 'June 25, 2020',
-        rating: 4.0,
-        review: 'Marine rise restaurant sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...',
+        foodImage: require('../../assets/images/food/food13.png'),
+        foodName: 'Burger',
+        amount: 12.00,
+        prefredfor:"brunch",
+        discount:"50%",
+        customizable: false,
     },
     {
         id: '2',
-        peopleImage: require('../../assets/images/users/user2.png'),
-        peopleName: 'Grecy John',
-        reviewDate: 'June 28, 2020',
-        rating: 3.0,
-        review: 'Marine rise restaurant sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...',
+        foodImage: require('../../assets/images/food/food18.png'),
+        foodName: 'Veg Cheese Sandwich',
+        amount: 10.00,
+        prefredfor:"brunch",
+        discount:"40%",
+        customizable: true,
     },
+    {
+        id: '3',
+        foodImage: require('../../assets/images/food/food19.png'),
+        foodName: 'Crust Gourmet Pizza',
+        amount: 15.00,
+        prefredfor:"brunch",
+        discount:"20%",
+        customizable: true,
+    },
+    {
+        id: '4',
+        foodImage: require('../../assets/images/food/food12.png'),
+        foodName: 'Veg Sandwich',
+        amount: 6.00,
+        customizable: true,
+        prefredfor:"breakfast",
+        discount:"20%",
+    },
+    {
+        id: '5',
+        foodImage: require('../../assets/images/food/food16.png'),
+        foodName: 'Veg Frankie',
+        amount: 10.00,
+        customizable: false,
+        prefredfor:"lunch",
+        discount:"20%",
+    },
+    {
+        id: '6',
+        foodImage: require('../../assets/images/food/food17.png'),
+        foodName: 'Margherite Pizza',
+        amount: 12.00,
+        customizable: true,
+        prefredfor:"dinner",
+        discount:"20%",
+    },
+    {
+        id: '7',
+        foodImage: require('../../assets/images/food/food13.png'),
+        foodName: 'Burger',
+        amount: 12.00,
+        customizable: false,
+        prefredfor:"lunch",
+        discount:"20%",
+    },
+    {
+        id: '8',
+        foodImage: require('../../assets/images/food/food18.png'),
+        foodName: 'Veg Cheese Sandwich',
+        amount: 10.00,
+        customizable: true,
+        prefredfor:"lunch",
+        discount:"20%",
+    },
+    {
+        id: '9',
+        foodImage: require('../../assets/images/food/food19.png'),
+        foodName: 'Crust Gourmet Pizza',
+        amount: 15.00,
+        customizable: true,
+        prefredfor:"breakfast",
+        discount:"20%",
+    },
+
+
 ];
 
 const RestaurantDetailScreen = ({ navigation, route }) => {
@@ -57,6 +125,7 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
                     source={require('../../assets/images/food/food15.png')}
                     style={{ height: 200.0, width: '100%', flex: 1 }}
                 >
+                   
                     {header()}
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -66,7 +135,8 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
                     >
                         {restaurantDetail()}
                         {mostPopularItemsInfo()}
-                        {peopleReviewsInfo()}
+                        {menu()}
+                        {foodlistTimeWise()}
                         {orderFoodNowButton()}
                     </ScrollView>
                 </ImageBackground>
@@ -103,30 +173,34 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
         )
     }
 
-    function peopleReviewsInfo() {
+    function foodlistTimeWise() {
         return (
             <View style={{ marginHorizontal: Sizes.fixPadding * 2.0, }}>
                 <Text style={{ marginBottom: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
-                    What People Says
+                    Brunch
                 </Text>
                 {
-                    reviewsList.map((item) => (
+                    otherAvailableFoodList.map((item) => (
                         <View
                             key={`${item.id}`}
                             style={styles.reviewsWrapStyle}
+                        
                         >
+                            <View style={{position:"absolute",right:0, backgroundColor: '#FFECE5',height:30,width:70, top:0,borderTopStartRadius:Sizes.fixPadding ,borderBottomStartRadius:Sizes.fixPadding, justifyContent:'center', alignItems:'center' }}>
+                                <Text style={{ ...Fonts.primaryColor16Medium }}>{item.discount}</Text>
+                            </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
                                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                                     <Image
-                                        source={item.peopleImage}
+                                        source={item.foodImage}
                                         style={{ width: 60.0, height: 60.0, borderRadius: 30.0, }}
                                     />
                                     <View style={{ flex: 1, marginLeft: Sizes.fixPadding, }}>
                                         <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                                            {item.peopleName}
+                                            {item.foodName}
                                         </Text>
                                         <Text style={{ ...Fonts.grayColor12Medium }}>
-                                            {item.reviewDate}
+                                            ${item.amount}
                                         </Text>
                                     </View>
                                 </View>
@@ -135,9 +209,15 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
                             <Text numberOfLines={2} style={{ marginTop: Sizes.fixPadding - 5.0, ...Fonts.grayColor12Regular }}>
                                 {item.review}
                             </Text>
+                            <TouchableOpacity
+                                onPress={()=>navigation.navigate("Products")}
+                            style={{backgroundColor:'green', borderRadius:20, height:30, justifyContent:'center', alignItems:'center'}}>
+                                <Text style={{color:"white", fontWeight:'bold'}}>Order</Text>
+                            </TouchableOpacity>
                         </View>
                     ))
                 }
+                
             </View>
         )
     }
@@ -237,7 +317,11 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
             </View>
         )
     }
-
+    function menu(){
+        return(
+            <FoodOfDifferentCategoriesScreen/>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

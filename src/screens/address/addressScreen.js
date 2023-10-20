@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, StatusBar, FlatList, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
+import  Icon  from "react-native-vector-icons/FontAwesome5";
 
 
 const addressesList = [
@@ -34,7 +35,15 @@ const AddressScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+            
             <View style={{ flex: 1 }}>
+            <View style={{margin:Sizes.fixPadding*2}}>
+        <TouchableOpacity onPress={()=>navigation.pop()}>
+
+        <Icon name="arrow-left"/>
+        </TouchableOpacity>
+      
+    </View>
                 {header()}
                 <FlatList
                     ListHeaderComponent={

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
+
 import Icon  from "react-native-vector-icons/FontAwesome5"
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 
@@ -156,6 +157,7 @@ const nearByRestaurantsList = [
     rating: 2.0,
   },
 ];
+// const [isFavourite, setFavourite] = useState(false);
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -170,12 +172,13 @@ const HomeScreen = ({ navigation }) => {
               {searchInfo()}
               {banners()}
               {foodCategoriesInfo()}
+              {oderStatus()}
               
               {nearByRestaurantsInfo()}
               {todaysSpecialInfo()}
             </>
           }
-          contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 6.0 }}
+          contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 5.5 }}
           showsVerticalScrollIndicator={false}
         />
       </View>
@@ -393,7 +396,16 @@ const HomeScreen = ({ navigation }) => {
 
   function banners() {
     const renderItem = ({ item }) => (
+      <>
+      <View style={{flexDirection:'row', position:"relative",}}>
+
       <Image source={item.bannerImage} style={styles.bannerImageStyle} />
+        <TouchableOpacity style={{position:'relative', zIndex:99, right:Sizes.fixPadding*4.5,top:4, }} >
+        <Icon name="heart" size={25} color={"red"}/>
+
+        </TouchableOpacity>
+      </View>
+      </>
     );
     return (
       <View>
@@ -430,17 +442,25 @@ const HomeScreen = ({ navigation }) => {
       <View style={{margin:Sizes.fixPadding *1.8,justifyContent:"space-between",flexDirection:'row', padding: Sizes.fixPadding + 5.0,}}>
 <View style={{flexDirection:"row", justifyContent:'center',alignItems:'center'}}>
 
-<TouchableOpacity>
+<TouchableOpacity onPress={()=>navigation.navigate("addresses")}>
 <Icon name="map-pin" size={20} color="green"/>
 </TouchableOpacity>
 <Text style={{marginHorizontal:Sizes.fixPadding}}>Delivery Address</Text>
 </View>
-<TouchableOpacity style={{backgroundColor:Colors.primaryColor, height:50, justifyContent:'center', width:"50%", alignItems:'center',borderRadius:Sizes.fixPadding+5}}>
+<TouchableOpacity style={{backgroundColor:Colors.primaryColor, height:50, justifyContent:'center', width:"50%", alignItems:'center',borderRadius:Sizes.fixPadding+5}} onPress={()=>navigation.navigate("Subcriptions")}>
   <Text style={{color:"white", fontWeight:'bold'}}>
     Ative Subcriptions
   </Text>
 </TouchableOpacity>
       </View>
+    )
+  }
+  function oderStatus (){
+    return(
+<View style={{backgroundColor:'green', margin:Sizes.fixPadding*2, height:50, padding:Sizes.fixPadding, borderRadius:Sizes.fixPadding}}>
+  <Text style={{color:"white"}}> Order Arriving </Text>
+  <View style={{backgroundColor:Colors.primaryColor, height:5}}></View>
+</View>
     )
   }
 };
