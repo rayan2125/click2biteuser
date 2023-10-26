@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, StatusBar, StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
 import { Colors, Fonts, Sizes, } from '../../constants/styles';
-
+import Icon  from 'react-native-vector-icons/FontAwesome5'
 
 const sizesList = [
     'Medium', 'Small', 'Large', 'Extra Large'
@@ -60,6 +60,13 @@ const ProductsScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1, }}>
+            <View style={{margin:Sizes.fixPadding}}>
+        <TouchableOpacity onPress={()=>navigation.pop()}>
+
+        <Icon name="arrow-left"/>
+        </TouchableOpacity>
+      
+    </View>
                 {header()}
                 <FlatList
                     ListHeaderComponent={

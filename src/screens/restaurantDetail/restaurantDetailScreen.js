@@ -5,6 +5,8 @@ import { Colors, Fonts, Sizes, } from "../../constants/styles";
 
 import { Snackbar } from "react-native-paper";
 import FoodOfDifferentCategoriesScreen from "../foodOfDifferentCategories/foodOfDifferentCategoriesScreen";
+import Header from "../../lib/Header";
+import Menu from "../menu/menu";
 
 const { width } = Dimensions.get('window');
 
@@ -119,7 +121,10 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
-            <StatusBar translucent backgroundColor={'transparent'} />
+            
+            <Header
+            title="Kitcen"
+            />
             <View style={{ flex: 1 }}>
                 <ImageBackground
                     source={require('../../assets/images/food/food15.png')}
@@ -135,11 +140,13 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
                     >
                         {restaurantDetail()}
                         {mostPopularItemsInfo()}
-                        {menu()}
-                        {foodlistTimeWise()}
                         {orderFoodNowButton()}
+                        {menu()}
+                      {foodlistTimeWise()}
+                        
                     </ScrollView>
                 </ImageBackground>
+                
                 {snackBar()}
             </View>
         </SafeAreaView>
@@ -161,15 +168,29 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
 
     function orderFoodNowButton() {
         return (
+            <View style={{
+                // margin:Sizes.fixPadding,
+                flexDirection:'row', width:'100%',justifyContent:"space-around",alignItems:"center"}}>
+
             <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() => navigation.push('FoodOfDifferentCategories')}
+                style={[styles.orderFoodNowButtonStyle,{backgroundColor:"green",}]}
+            >
+                <Text style={{ ...Fonts.whiteColor18Bold }}>
+                    Order 
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => navigation.push('Subcriptions')}
                 style={styles.orderFoodNowButtonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor18Bold }}>
-                    Order Food Now
+                   Subscribe
                 </Text>
             </TouchableOpacity>
+            </View>
         )
     }
 
@@ -319,7 +340,7 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
     }
     function menu(){
         return(
-            <FoodOfDifferentCategoriesScreen/>
+            <Menu/>
         )
     }
 }
@@ -396,6 +417,7 @@ const styles = StyleSheet.create({
         borderWidth: 1.0,
         elevation: 1.0,
         shadowColor: Colors.primaryColor,
+        width:"48%"
     }
 });
 

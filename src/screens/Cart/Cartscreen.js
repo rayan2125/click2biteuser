@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, StatusBar, StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
 import { Colors, Fonts, Sizes, } from '../../constants/styles';
-
+import  Icon  from "react-native-vector-icons/FontAwesome5";
 
 const sizesList = [
     'Medium', 'Small', 'Large', 'Extra Large'
@@ -60,6 +60,13 @@ const CartScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1, }}>
+                <View style={{ margin: Sizes.fixPadding }}>
+                    <TouchableOpacity onPress={() => navigation.pop()}>
+
+                        <Icon name="arrow-left" color="white" />
+                    </TouchableOpacity>
+
+                </View>
                 {header()}
                 <FlatList
                     ListHeaderComponent={
@@ -191,7 +198,7 @@ const CartScreen = ({ navigation }) => {
                         <Text style={{ ...Fonts.blackColor12SemiBold }}>
                             Size
                         </Text>
-                       
+
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ marginRight: Sizes.fixPadding + 5.0, ...Fonts.blackColor12SemiBold, }}>
@@ -201,7 +208,7 @@ const CartScreen = ({ navigation }) => {
                             activeOpacity={0.9}
                             onPress={() => updateItemCount({ id: item.id, type: 'remove' })}
                             style={styles.productAddAndRemoveButtonWrapStyle}>
-                            
+
                         </TouchableOpacity>
                         <Text style={{ marginHorizontal: Sizes.fixPadding, ...Fonts.blackColor13Medium }}>
                             {item.itemCount}
@@ -211,7 +218,7 @@ const CartScreen = ({ navigation }) => {
                             onPress={() => updateItemCount({ id: item.id, type: 'add' })}
                             style={styles.productAddAndRemoveButtonWrapStyle}
                         >
-                            
+
                         </TouchableOpacity>
                     </View>
                 </View>
