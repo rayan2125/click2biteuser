@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView, View, Dimensions, StatusBar, Image, FlatList, ScrollView, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
 import  Icon  from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 
 
 
@@ -101,6 +102,7 @@ const customiseOptionsList = [
 
 
 const Menu = () => {
+const navigation = useNavigation()
    
 
     const [state, setState] = useState({

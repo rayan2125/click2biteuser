@@ -17,6 +17,7 @@ import OrderPlacedInfoScreen from '../screens/orderPlacedInfo/orderPlacedInfoScr
 import Subcriptions from '../screens/Subcriptions/Subcriptions'
 import AddressScreen from '../screens/address/addressScreen'
 import AddNewAddressScreen from '../screens/addNewAddress/addNewAddressScreen'
+import Totallist from '../pages/totallist/totallist'
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +37,7 @@ const Router = () => {
     <Stack.Screen name='Subcriptions' component={Subcriptions}/>
     <Stack.Screen name='addresses' component={AddressScreen}/>
     <Stack.Screen name='AddNewAddress' component={AddNewAddressScreen}/>
+    <Stack.Screen name='TotalList' component={Totallist}/>
    </Stack.Navigator>
   )
 }

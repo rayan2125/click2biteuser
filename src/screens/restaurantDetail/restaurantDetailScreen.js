@@ -7,6 +7,7 @@ import { Snackbar } from "react-native-paper";
 import FoodOfDifferentCategoriesScreen from "../foodOfDifferentCategories/foodOfDifferentCategoriesScreen";
 import Header from "../../lib/Header";
 import Menu from "../menu/menu";
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -111,6 +112,9 @@ const otherAvailableFoodList = [
 
 ];
 
+const startColor = 'rgba(244, 196, 48,0.5)'; 
+const endColor = 'rgba(0, 128, 0,0.1)';
+
 const RestaurantDetailScreen = ({ navigation, route }) => {
 
     const id = route.params.id;
@@ -123,29 +127,26 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             
             <Header
-            title="Kitcen"
+            title="Kitchen"
             />
             <View style={{ flex: 1 }}>
-                <ImageBackground
-                    source={require('../../assets/images/food/food15.png')}
-                    style={{ height: 200.0, width: '100%', flex: 1 }}
-                >
+                
                    
-                    {header()}
+                    {restaurantDetail()}
+                  
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{
                             paddingTop: StatusBar.currentHeight + Sizes.fixPadding * (Platform.OS=='android'?2.0: 3.0),
                         }}
                     >
-                        {restaurantDetail()}
                         {mostPopularItemsInfo()}
                         {orderFoodNowButton()}
                         {menu()}
                       {foodlistTimeWise()}
                         
                     </ScrollView>
-                </ImageBackground>
+                
                 
                 {snackBar()}
             </View>
@@ -288,56 +289,21 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
 
     function restaurantDetail() {
         return (
-            <View style={styles.restaurantDetailWrapStyle}>
-                <View style={styles.restuarantInfoWrapStyle}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            
-                            <View style={{ flex: 1, marginLeft: Sizes.fixPadding * 7.7, }}>
-                                <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
-                                    Marine Rise Restaurant
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ marginRight: Sizes.fixPadding - 5.0, ...Fonts.primaryColor12SemiBold }}>
-                                {4.3.toFixed(1)}
-                            </Text>
-                            
-                        </View>
-                    </View>
-                    <Text style={{ ...Fonts.grayColor14Medium }}>
-                        Fast food, Italian, Chinese
-                    </Text>
-                    <View style={{ marginTop: Sizes.fixPadding - 5.0, flex: 1, flexDirection: 'row', }}>
-                        
-                        <Text style={{ flex: 1, marginLeft: Sizes.fixPadding - 5.0, ...Fonts.grayColor13Medium }}>
-                            2.5 | 1124, ghsyte ghyrths jku
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.aboutRestaurantWrapStyle}>
-                    <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                        About Restaurant
-                    </Text>
-                    <Text style={{ marginLeft: Sizes.fixPadding + 10.0, ...Fonts.grayColor12Regular }}>
-                        Marine rise restaurant sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...
-                    </Text>
-                </View>
-            </View>
+            <LinearGradient 
+            colors={[startColor, endColor]}
+            style={{margin:Sizes.fixPadding*2, backgroundColor:"white", zIndex:9, elevation:9,borderRadius:15, paddingHorizontal:15,paddingVertical:15}}>
+
+
+
+                <Text style={{color:'black'}}>Vinnet Da Dabba</Text>
+                <Text style={{color:'black'}}>4.6(108) </Text>
+                <Text style={{color:'black'}}>North Indian , Punjabi</Text>
+                <Text style={{color:'black'}}>Serve:Dinner, Lunch</Text>
+            </LinearGradient >
         )
     }
 
-    function header() {
-        return (
-            <View style={styles.headerWrapStyle}>
-                
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    
-                </View>
-            </View>
-        )
-    }
+  
     function menu(){
         return(
             <Menu/>

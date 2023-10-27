@@ -6,6 +6,7 @@ import HomeScreen from "../screens/home/homeScreen";
 import CartScreen from "../screens/Cart/Cartscreen";
 import OrdersScreen from "../screens/orders/ordersScreen";
 import { useFocusEffect } from "@react-navigation/native";
+import Header from "../lib/Header";
 
 const { width } = Dimensions.get('window');
 
@@ -41,7 +42,7 @@ const BottomTabBarScreen = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+            
             <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
                 {currentIndex == 1 ?
                     <HomeScreen navigation={navigation} /> :

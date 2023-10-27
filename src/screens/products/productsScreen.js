@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, StatusBar, StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
 import { Colors, Fonts, Sizes, } from '../../constants/styles';
 import Icon  from 'react-native-vector-icons/FontAwesome5'
+import Header from '../../lib/Header';
 
 const sizesList = [
     'Medium', 'Small', 'Large', 'Extra Large'
@@ -58,13 +59,11 @@ const ProductsScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
-            <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+            <Header
+            title="Add Food"/>
             <View style={{ flex: 1, }}>
             <View style={{margin:Sizes.fixPadding}}>
-        <TouchableOpacity onPress={()=>navigation.pop()}>
-
-        <Icon name="arrow-left"/>
-        </TouchableOpacity>
+        
       
     </View>
                 {header()}
@@ -186,7 +185,7 @@ const ProductsScreen = ({ navigation }) => {
                             activeOpacity={0.9}
                             onPress={() => updateItemCount({ id: item.id, type: 'remove' })}
                             style={styles.productAddAndRemoveButtonWrapStyle}>
-                            
+                             <Text style={{color:'white'}}>-</Text>
                         </TouchableOpacity>
                         <Text style={{ marginHorizontal: Sizes.fixPadding, ...Fonts.blackColor13Medium }}>
                             {item.itemCount}
@@ -196,7 +195,7 @@ const ProductsScreen = ({ navigation }) => {
                             onPress={() => updateItemCount({ id: item.id, type: 'add' })}
                             style={styles.productAddAndRemoveButtonWrapStyle}
                         >
-                            
+                            <Text style={{color:'white'}}>+</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
