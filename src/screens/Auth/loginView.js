@@ -6,7 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 const { width } = Dimensions.get('window');
 
-const loginView = ({ navigation }) => {
+const LoginView = ({ navigation }) => {
 
     const backAction = () => {
         backClickCount == 1 ? BackHandler.exitApp() : _spring();
@@ -314,4 +314,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default loginView;
+export default LoginView;

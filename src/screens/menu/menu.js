@@ -114,6 +114,7 @@ const navigation = useNavigation()
     })
 
     const updateState = (data) => setState((state) => ({ ...state, ...data }))
+    console.log("check===>",state)
 
     const {
         selectedCategory,
@@ -122,7 +123,7 @@ const navigation = useNavigation()
         selectedCustomProductName,
         selectedCustomProductAmount,
     } = state;
-    // const[favorites,setFavourite] =useState(false)
+    
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
@@ -171,11 +172,7 @@ const navigation = useNavigation()
                         }
                     </View>
                 </View>
-                <TouchableOpacity
-                onPress={()=> setFavourite(!isFavourite)}
-                style={{position:'relative', zIndex:99,bottom:27,left:50, backgroundColor:"rgba(0,0,0,0.1)", height:40,width:40,borderRadius:99,justifyContent:'center', alignItems:'center' }}>
-                    <Icon name="heart" color={isFavourite? "red": 'white'} size={25}/>
-                </TouchableOpacity>
+                
                 <TouchableOpacity
                     activeOpacity={0.9}
                     onPress={() => {

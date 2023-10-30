@@ -5,7 +5,7 @@ import { Colors, Fonts, Sizes, } from "../../constants/styles";
 
 const { width } = Dimensions.get('window');
 
-const signupView = ({ navigation }) => {
+const SignupView = ({ navigation }) => {
 
     const [state, setState] = useState({
         fullName: null,
@@ -65,7 +65,7 @@ const signupView = ({ navigation }) => {
                     Already have an account?
                 </Text>
                 <Text
-                    onPress={() => navigation.push('loginView')}
+                    onPress={() => navigation.push('LoginView')}
                     style={{ marginLeft: Sizes.fixPadding - 5.0, ...Fonts.blackColor15Medium }}
                 >
                     Sign In
@@ -311,4 +311,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default signupView;
+export default SignupView;
