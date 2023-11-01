@@ -447,7 +447,7 @@ const HomeScreen = ({ navigation }) => {
 </TouchableOpacity>
 <Text style={{marginHorizontal:Sizes.fixPadding}}>Delivery Address</Text>
 </View>
-<TouchableOpacity style={{backgroundColor:Colors.primaryColor, height:50, justifyContent:'center', width:"50%", alignItems:'center',borderRadius:Sizes.fixPadding+5}} onPress={()=>navigation.navigate("TotalList")}>
+<TouchableOpacity style={{backgroundColor:Colors.primaryColor, height:50, justifyContent:'center', width:"50%", alignItems:'center',borderRadius:Sizes.fixPadding+5}} onPress={()=>navigation.navigate("Itemsmenu")}>
   <Text style={{color:"white", fontWeight:'bold'}}>
     Ative Subcriptions
   </Text>

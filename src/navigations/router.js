@@ -18,6 +18,7 @@ import AddressScreen from '../screens/address/addressScreen'
 import AddNewAddressScreen from '../screens/addNewAddress/addNewAddressScreen'
 import Totallist from '../pages/totallist/totallist'
 import ListofItem from '../pages/listofItem/listofItem'
+import Itemsmenu from '../pages/Subcribe/Itemsmenu'
 
 const Stack = createNativeStackNavigator()
 
@@ -39,6 +40,7 @@ const Router = () => {
     <Stack.Screen name='AddNewAddress' component={AddNewAddressScreen}/>
     <Stack.Screen name='TotalList' component={Totallist}/>
     <Stack.Screen name='ListofItem' component={ListofItem}/>
+    <Stack.Screen name='Itemsmenu' component={Itemsmenu}/>
    </Stack.Navigator>
   )
 }
