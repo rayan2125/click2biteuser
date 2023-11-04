@@ -19,10 +19,9 @@ const Items = ({search,foodCategories}) => {
 
     const filteredFoodItems = foodCategories.filter((item) => {
         return selectedCategory === 'all' || item.type === selectedCategory
-        &&(search === '' || item.name.toLowerCase().includes(search.toLowerCase())) 
-
+            && (!search || (item.name && item.name.toLowerCase().includes(search.toLowerCase())));
+    });
     
-      });
       
 
     return (
@@ -39,8 +38,9 @@ const Items = ({search,foodCategories}) => {
                             onPress={() => handleChangeItems(item)}
 
                             style={{ backgroundColor: bg,width:100,
+                                height:40,
                                 justifyContent:"center",alignItems:"center",
-                             borderRadius: 25, margin: Sizes.fixPadding, paddingHorizontal: Sizes.fixPadding, paddingVertical: Sizes.fixPadding, }}>
+                             borderRadius: 25,marginHorizontal:Sizes.fixPadding,marginVertical:Sizes.fixPadding  }}>
                             <Text style={{color:"white"}}>{item}</Text>
                         </TouchableOpacity>
                     )
