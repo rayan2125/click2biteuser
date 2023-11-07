@@ -14,13 +14,17 @@ export const cartSlice = createSlice({
         state.cart.push({ ...action.payload, quantity: 1 });
       }
     },
+
     removeFromCart: (state, action) => {
       const removeFromCart = state.cart.filter((item) => item.id !== action.payload.id);
       state.cart = removeFromCart;
     },
     incrementQuantity: (state, action) => {
-      const itemInCart = state.cart.find((item) => item.id === action.payload.id);
-      itemInCart.quantity++;
+
+      // const itemInCart = state.cart.find((item) => item.id === action.payload.id);
+      state.value += 1
+      // console.log("===>",state)
+     
     },
     decrementQuantity: (state, action) => {
       const itemInCart = state.cart.find((item) => item.id === action.payload.id);

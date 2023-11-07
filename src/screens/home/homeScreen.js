@@ -261,7 +261,7 @@ const HomeScreen = ({ navigation }) => {
     const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.push("RestaurantDetail", { id: item.id })}
+        onPress={() => navigation.push("RestaurantDetail", {item})}
         style={styles.nearByRestaurantsWrapStyle}
       >
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -347,7 +347,7 @@ const HomeScreen = ({ navigation }) => {
     const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.push("RestaurantsList")}
+        onPress={() => navigation.push("RestaurantsList",item)}
         style={{ alignItems: "center", marginRight: Sizes.fixPadding + 5.0 }}
       >
         <Image
@@ -458,7 +458,10 @@ const HomeScreen = ({ navigation }) => {
   function oderStatus (){
     return(
 <View style={{backgroundColor:'green', margin:Sizes.fixPadding*2, height:50, padding:Sizes.fixPadding, borderRadius:Sizes.fixPadding}}>
+  <TouchableOpacity onPress={()=>navigation.navigate("CheckInfo")}>
+
   <Text style={{color:"white"}}> Order Arriving </Text>
+  </TouchableOpacity>
   <View style={{backgroundColor:Colors.primaryColor, height:5}}></View>
 </View>
     )

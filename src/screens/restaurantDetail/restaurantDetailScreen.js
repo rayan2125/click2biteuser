@@ -117,7 +117,8 @@ const endColor = 'rgba(0, 128, 0,0.1)';
 
 const RestaurantDetailScreen = ({ navigation, route }) => {
 
-    const id = route.params.id;
+const KitchenName = route.params
+console.log("======>",KitchenName)
 
     const [isFavorite, setisFavorite] = useState(false)
 
@@ -127,7 +128,7 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             
             <Header
-            title="Kitchen"
+            title={KitchenName.item.restaurantName}
             />
             <View style={{ flex: 1 }}>
                 
@@ -295,7 +296,7 @@ const RestaurantDetailScreen = ({ navigation, route }) => {
 
 
 
-                <Text style={{color:'black'}}>Vinnet Da Dabba</Text>
+                <Text style={{color:'black'}}>{KitchenName.item.restaurantName}</Text>
                 <Text style={{color:'black'}}>4.6(108) </Text>
                 <Text style={{color:'black'}}>North Indian , Punjabi</Text>
                 <Text style={{color:'black'}}>Serve:Dinner, Lunch</Text>

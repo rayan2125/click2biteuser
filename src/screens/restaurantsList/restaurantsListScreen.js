@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, View, StatusBar, Image, TouchableOpacity, FlatList, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
+import Header from "../../lib/Header";
 
 
 
@@ -79,12 +80,14 @@ const restaurantsList = [
     },
 ];
 
-const RestaurantsListScreen = ({ navigation }) => {
+const RestaurantsListScreen = ({ navigation ,route }) => {
+    const {category} = route.params
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1 }}>
-                
+                <Header
+                title={category}/>
                 {restaurants()}
             </View>
         </SafeAreaView>
