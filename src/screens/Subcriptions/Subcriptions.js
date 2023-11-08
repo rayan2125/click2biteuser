@@ -3,90 +3,101 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import { Colors, Sizes } from '../../constants/styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Header from '../../lib/Header';
-import SubcribeBtn from '../../lib/SubcribeBtn';
+import LinearGradient from 'react-native-linear-gradient';
+import FlatlistofSub from '../../component/Subcritions/FlatlistofSub';
 
+const breakFast = ["Chole bhature", "Daal baati churma", "Daal puri", "Dal makhani", "Aloo Parantha", "Dhokla", "Idli Sambhar"];
 
-const data = [
-
-  {
-    name: "breakFast ",
-    items: ["Chole bhature", "Daal baati churma", "Daal puri", "Dal makhani", "Aloo Parantha", "Dhokla", "Idli Sambhar"]
-  },
-
-
-  {
-    name: "lunch",
-    items: ["Rajma chawal", "Palak paneer", "Sambar", "Masala bhindi", "Gujarati kadhi", "Kolhapuri vegetables"]
-  },
-
-  {
-    name: "dinner",
-    items: ["biryani", "Chana masala", "Sambar", "Paneer Tikka Masala", "Gujarati kadhi", "Kolhapuri vegetables"]
-  }
-]
+const lunch = ["Rajma chawal", "Palak paneer", "Sambar", "Masala bhindi", "Gujarati kadhi", "Kolhapuri vegetables"]
+const dinner = ["biryani", "Chana masala", "Sambar", "Paneer Tikka Masala", "Gujarati kadhi", "Kolhapuri vegetables"]
 
 const Subcriptions = ({ navigation }) => {
 
-  const [selectedItems, setSelectedItems] = useState(data);
+  const [selectedBreakfast, setSelectedBreakfast] = useState([]);
+  const [selectedLunch, setSelectedLunch] = useState([]);
+  const [selectedDinner, setSelectedDinner] = useState([]);
 
 
-  const handleItem = (item) => {
-    if (selectedItems.includes(item)) {
-      setSelectedItems(selectedItems.filter((selected) => selected !== item));
-    } else {
 
-      setSelectedItems([...selectedItems, item]);
+  const handleItem = (category, item) => {
+    if (category === 'breakfast') {
+      if (selectedBreakfast.includes(item)) {
+        setSelectedBreakfast(selectedBreakfast.filter((selected) => selected !== item));
+      } else {
+        setSelectedBreakfast([...selectedBreakfast, item]);
+      }
+    } else if (category === 'lunch') {
+      if (selectedLunch.includes(item)) {
+        setSelectedLunch(selectedLunch.filter((selected) => selected !== item));
+      } else {
+        setSelectedLunch([...selectedLunch, item]);
+      }
+    } else if (category === 'dinner') {
+      if (selectedDinner.includes(item)) {
+        setSelectedDinner(selectedDinner.filter((selected) => selected !== item));
+      } else {
+        setSelectedDinner([...selectedDinner, item]);
+      }
+    }
+
+  };
+
+
+  const handleSubcribe = () => {
+    const selectedItems = {
+      breakfast: selectedBreakfast,
+      lunch: selectedLunch,
+      dinner: selectedDinner,
+    };
+    
+    navigation.navigate("CheckInfo",{ selectedItems, handleRemoveItem });
+  }
+  const handleRemoveItem = (category, item) => {
+    if (category === 'breakfast') {
+      setSelectedBreakfast(selectedBreakfast.filter((selected) => selected !== item));
+    } else if (category === 'lunch') {
+      setSelectedLunch(selectedLunch.filter((selected) => selected !== item));
+    } else if (category === 'dinner') {
+      setSelectedDinner(selectedDinner.filter((selected) => selected !== item));
     }
   };
-  const handleSubcribe = () => {
-    navigation.navigate("CheckInfo", selectedItems)
-    // setSelectedItems
-  }
 
   return (
     <>
       <Header title="Subscriptions" />
       <View style={{ margin: Sizes.fixPadding * 2 }}>
         <View style={{ borderColor: 'black' }}>
-          <Text>Breakfast</Text>
-          <FlatList
-          numColumns={2}
-            data={data}
-            renderItem={({ item }) => (
-              item.items.map((inde) => (
-                <View style={{ width: '50%' }}>
-                  <TouchableOpacity
-                    onPress={() => handleItem(inde)}
-                    style={{
-                      paddingVertical: 10,
-                      paddingHorizontal: 10,
-                      backgroundColor: selectedItems.includes(inde)
-                        ? Colors.primaryColor
-                        : "green",
-                      borderRadius: 20,
-                      margin: 5,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={{ color: "white" }}>{inde}</Text>
-                  </TouchableOpacity>
-                  {/* <TouchableOpacity
-                    onPress={handleSubcribe}
-                    style={{ backgroundColor: 'red', height: 40, borderRadius: 20, justifyContent: "center", alignItems: "center" }}>
-                    <Text style={{ color: "white" }}>Subcribe Now</Text>
-                  </TouchableOpacity> */}
-                </View>
-              ))
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          <LinearGradient colors={[Colors.primaryColor, "#F47216"]} style={{ height: 30, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
 
+            <Text style={{ color: 'white' }}>Breakfast</Text>
+          </LinearGradient>
+          <FlatlistofSub
+          onPress={(item)=>handleItem("breakfast",item)}
+          selectedItem={selectedBreakfast}
+          data={breakFast}/>
+          <LinearGradient colors={[Colors.primaryColor, "#F47216"]} style={{ height: 30, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
 
+            <Text style={{ color: 'white' }}>Lunch</Text>
+          </LinearGradient>
 
+          <FlatlistofSub
+          onPress={(item)=>handleItem("lunch",item)}
+          selectedItem={selectedLunch}
+          data={lunch}/>
 
+          <LinearGradient colors={[Colors.primaryColor, "#F47216"]} style={{ height: 30, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
 
-
+            <Text style={{ color: 'white' }}>Dinner</Text>
+          </LinearGradient>
+          <FlatlistofSub
+          onPress={(item)=>handleItem("dinner",item)}
+          selectedItem={selectedDinner}
+          data={dinner}/>
+          <TouchableOpacity
+            onPress={handleSubcribe}
+            style={{ backgroundColor: 'red', height: 40, borderRadius: 20, justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ color: "white" }}>Subcribe Now</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
