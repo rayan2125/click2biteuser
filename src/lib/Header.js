@@ -3,17 +3,21 @@ import React from 'react'
 import Icon from "react-native-vector-icons/FontAwesome5"
 import { Colors, Sizes } from '../constants/styles'
 import { useNavigation } from '@react-navigation/native'
+import LinearGradient from 'react-native-linear-gradient'
 const Header = ({title}) => {
     const navigation = useNavigation()
   return (
     <>
-    <StatusBar translucent={false} backgroundColor={Colors.primaryColor}/> 
-    <View style={{backgroundColor:'green',height:50,justifyContent:"space-between",alignItems:"center",flexDirection:'row', width:'100%'}}>
-        <TouchableOpacity style={{width:"30%", marginHorizontal:Sizes.fixPadding}} onPress={()=>navigation.pop()}>
+    <StatusBar translucent={false} backgroundColor={Colors.greenColor}/> 
+    <LinearGradient colors={[Colors.primaryColor,"#F6D239"]} style={{height:50,alignItems:"center",flexDirection:'row', width:'100%'}}>
+        <TouchableOpacity style={{ marginHorizontal:Sizes.fixPadding,justifyContent:'center'}} onPress={()=>navigation.pop()}>
             <Icon name="arrow-left" size={20} color="white"/>
         </TouchableOpacity>
-      <Text style={{color:'white',width:'60%'}}>{title}</Text>
-    </View>
+        <View style={{flex:1,}}>
+
+      <Text style={{color:'white',textAlign:"center",marginHorizontal:-3}}>{title}</Text>
+        </View>
+    </LinearGradient>
     </>
   )
 }

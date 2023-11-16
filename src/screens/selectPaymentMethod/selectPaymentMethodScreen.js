@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, StatusBar, TouchableOpacity, FlatList, Image, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
+import Header from "../../lib/Header";
 
 
 const paymentMethodsList = [
@@ -45,7 +46,10 @@ const SelectPaymentMethodScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1 }}>
-                {header()}
+               <Header
+               
+               title="Payment"
+               />
                 <FlatList
                     ListHeaderComponent={
                         <>

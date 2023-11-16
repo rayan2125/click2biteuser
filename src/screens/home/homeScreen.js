@@ -1,7 +1,8 @@
-import React,{useState} from "react";
+import React, { useState,useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
+  PermissionsAndroid,
   Text,
   View,
   StatusBar,
@@ -10,9 +11,11 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-
-import Icon  from "react-native-vector-icons/FontAwesome5"
+import Geolocation from 'react-native-geolocation-service';
+import Icon from "react-native-vector-icons/FontAwesome5"
 import { Colors, Fonts, Sizes } from "../../constants/styles";
+import LinearGradient from "react-native-linear-gradient";
+import Search from "../../lib/Search";
 
 
 const { width } = Dimensions.get("window");
@@ -59,10 +62,22 @@ const bannersList = [
   {
     id: "1",
     bannerImage: require("../../assets/images/food/food1.png"),
+    name: "Combo"
   },
   {
     id: "2",
     bannerImage: require("../../assets/images/food/food2.png"),
+    name: "Single"
+  },
+  {
+    id: "3",
+    bannerImage: require("../../assets/images/food/food1.png"),
+    name: "FastFood"
+  },
+  {
+    id: "4",
+    bannerImage: require("../../assets/images/food/food2.png"),
+    name: "Custom Plan"
   },
 ];
 
@@ -159,36 +174,88 @@ const nearByRestaurantsList = [
 ];
 // const [isFavourite, setFavourite] = useState(false);
 
+
+
+
+
 const HomeScreen = ({ navigation }) => {
+
+  
+
+  useEffect(() => {
+    
+    requestCameraPermission()
+    long()
+
+    
+  }, []);
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Cool Photo App Camera Permission',
+          message:
+            'Cool Photo App needs access to your camera ' +
+            'so you can take awesome pictures.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the location');
+      } else {
+        console.log('location permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+
+  };
+
+  const long =()=>{
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position);
+      },
+      (error) => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },)
+  }
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
-      <View style={{ flex: 1 }}>
-        {header()}
-        
-        <FlatList
-          ListHeaderComponent={
-            <>
-              {searchInfo()}
-              {banners()}
-              {foodCategoriesInfo()}
-              {oderStatus()}
-              
-              {nearByRestaurantsInfo()}
-              {todaysSpecialInfo()}
-            </>
-          }
-          contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 5.5 }}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <LinearGradient colors={['#FFFFED', "#F7A000"]} style={{ flex: 1 }}>
+
+        <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
+        <View style={{ flex: 1 }}>
+          {header()}
+
+          <FlatList
+            ListHeaderComponent={
+              <>
+                {searchInfo()}
+                {banners()}
+                {foodCategoriesInfo()}
+                {oderStatus()}
+                {nearByRestaurantsInfo()}
+                {todaysSpecialInfo()}
+              </>
+            }
+            contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 5.5 }}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 
   function todaysSpecialInfo() {
     const renderItem = ({ item }) => (
       <TouchableOpacity
-        activeOpacity={0.9}
+        activeOpacity={0.4}
         onPress={() => navigation.push("OfferDetail", { item: item })}
         style={{
           backgroundColor: Colors.lightGrayColor,
@@ -196,7 +263,7 @@ const HomeScreen = ({ navigation }) => {
           marginBottom: Sizes.fixPadding + 5.0,
         }}
       >
-        
+
         <View style={styles.todaysSpecialFoodInfoWrapStyle}>
           <Text
             numberOfLines={2}
@@ -209,16 +276,16 @@ const HomeScreen = ({ navigation }) => {
           >
             <View
               style={{
-                borderColor:Colors.greenColor,
+                borderColor: Colors.greenColor,
                 ...styles.vegOrnonVegIconOuterStyle,
               }}
             >
               <View
                 style={{
                   ...styles.vegOrnonVegIconInnerStyle,
-                  backgroundColor: 
-                     Colors.greenColor
-                    
+                  backgroundColor:
+                    Colors.greenColor
+
                 }}
               />
             </View>
@@ -229,7 +296,7 @@ const HomeScreen = ({ navigation }) => {
             position: "absolute",
             top: 5.0,
             right: 5.0,
-            color:"#332969",
+            color: "#332969",
             ...Fonts.whiteColor14Bold,
           }}
         >
@@ -261,12 +328,12 @@ const HomeScreen = ({ navigation }) => {
     const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.push("RestaurantDetail", {item})}
+        onPress={() => navigation.push("RestaurantDetail", { item })}
         style={styles.nearByRestaurantsWrapStyle}
       >
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-            
+
             <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
               <Text style={{ ...Fonts.blackColor12SemiBold }}>
                 {item.restaurantName}
@@ -285,7 +352,7 @@ const HomeScreen = ({ navigation }) => {
             >
               {item.rating.toFixed(1)}
             </Text>
-       
+
           </View>
         </View>
         <View
@@ -295,7 +362,7 @@ const HomeScreen = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          
+
           <Text
             style={{
               marginLeft: Sizes.fixPadding - 5.0,
@@ -341,13 +408,13 @@ const HomeScreen = ({ navigation }) => {
     );
   }
 
-  
+
 
   function foodCategoriesInfo() {
     const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.push("RestaurantsList",item)}
+        onPress={() => navigation.push("RestaurantsList", item)}
         style={{ alignItems: "center", marginRight: Sizes.fixPadding + 5.0 }}
       >
         <Image
@@ -397,23 +464,40 @@ const HomeScreen = ({ navigation }) => {
   function banners() {
     const renderItem = ({ item }) => (
       <>
-      <View style={{flexDirection:'row', position:"relative",}}>
 
-      <Image source={item.bannerImage} style={styles.bannerImageStyle} />
-        <TouchableOpacity style={{position:'relative', zIndex:99, right:Sizes.fixPadding*4.5,top:4, }} >
-        <Icon name="heart" size={25} color={"red"}/>
+        <View style={{ width: '50%', }}>
 
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={()=>navigation.navigate("Itemsmenu",item)}
+            style={{
+              height: 120,
+              paddingVertical: 10,
+              paddingHorizontal: 10,
+              // borderColor: Colors.primaryColor,
+              // borderWidth: 1,
+              backgroundColor: "white",
+              zIndex: 99,
+              elevation: 5,
+              borderRadius: 10,
+              margin: 5,
+              justifyContent: "center",
+              alignItems: "center"
+            }}>
+            <Image source={item.bannerImage} style={styles.bannerImageStyle} />
+            <Text style={{ color: "blue" }}>{item.name}</Text>
+          </TouchableOpacity>
+
+        </View>
       </>
     );
     return (
-      <View>
+      <View style={{ margin: 15 }}>
         <FlatList
+          numColumns={2}
           data={bannersList}
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
-          horizontal
+
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingLeft: Sizes.fixPadding * 2.0 }}
         />
@@ -422,48 +506,43 @@ const HomeScreen = ({ navigation }) => {
   }
 
   function searchInfo() {
+    const [search, setSearch] = useState('');
+    const handleSearch = (searchValue)=>{
+      setSearch(searchValue)
+    }
     return (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => navigation.push("Search")}
-        style={styles.searchInfoWrapStyle}
-      >
-       
-        <Text
-          style={{ marginLeft: Sizes.fixPadding, ...Fonts.grayColor14Medium }}
-        >
-          Search for restaurant,food...
-        </Text>
-      </TouchableOpacity>
-    );
+      <Search handleSearch={handleSearch}/>
+    )
+      
   }
-  function header(){
-    return(
-      <View style={{margin:Sizes.fixPadding *1.8,justifyContent:"space-between",flexDirection:'row', padding: Sizes.fixPadding + 5.0,}}>
-<View style={{flexDirection:"row", justifyContent:'center',alignItems:'center'}}>
+  function header() {
+    return (
+      <View style={{ margin: Sizes.fixPadding * 1.8, justifyContent: "space-between", flexDirection: 'row', padding: Sizes.fixPadding + 5.0, }}>
+        <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: 'center' }}>
 
-<TouchableOpacity onPress={()=>navigation.navigate("addresses")}>
-<Icon name="map-pin" size={20} color="green"/>
-</TouchableOpacity>
-<Text style={{marginHorizontal:Sizes.fixPadding}}>Delivery Address</Text>
-</View>
-<TouchableOpacity style={{backgroundColor:Colors.primaryColor, height:50, justifyContent:'center', width:"50%", alignItems:'center',borderRadius:Sizes.fixPadding+5}} onPress={()=>navigation.navigate("Itemsmenu")}>
-  <Text style={{color:"white", fontWeight:'bold'}}>
-    Ative Subcriptions
-  </Text>
-</TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("addresses")}>
+            <Icon name="map-pin" size={20} color="green" />
+          </TouchableOpacity>
+          <Text style={{ marginHorizontal: Sizes.fixPadding }}>Delivery Address</Text>
+        </View>
+        <TouchableOpacity 
+        style={{ backgroundColor: "#F47216", height: 50, justifyContent: 'center', width: "50%", alignItems: 'center', borderRadius: Sizes.fixPadding + 5 }} onPress={() => navigation.navigate("Itemsmenu")}>
+          <Text style={{ color: "white", fontWeight: 'bold' }}>
+            Ative Subcriptions
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
-  function oderStatus (){
-    return(
-<View style={{backgroundColor:'green', margin:Sizes.fixPadding*2, height:50, padding:Sizes.fixPadding, borderRadius:Sizes.fixPadding}}>
-  <TouchableOpacity onPress={()=>navigation.navigate("CheckInfo")}>
+  function oderStatus() {
+    return (
+      <View style={{ backgroundColor: 'green', margin: Sizes.fixPadding * 2, height: 50, padding: Sizes.fixPadding, borderRadius: Sizes.fixPadding }}>
+        <TouchableOpacity >
 
-  <Text style={{color:"white"}}> Order Arriving </Text>
-  </TouchableOpacity>
-  <View style={{backgroundColor:Colors.primaryColor, height:5}}></View>
-</View>
+          <Text style={{ color: "white" }}> Order Arriving </Text>
+        </TouchableOpacity>
+        <View style={{ backgroundColor: Colors.primaryColor, height: 5 }}></View>
+      </View>
     )
   }
 };
@@ -479,11 +558,11 @@ const styles = StyleSheet.create({
     elevation: 2.0,
   },
   bannerImageStyle: {
-    width: 200,
-    height: 120,
+    width: 120,
+    height: 80,
     resizeMode: "stretch",
     borderRadius: Sizes.fixPadding,
-    marginRight: Sizes.fixPadding * 2.0,
+    // marginRight: Sizes.fixPadding * 2.0,
   },
   offerBannerWrapStyle: {
     borderRadius: Sizes.fixPadding,

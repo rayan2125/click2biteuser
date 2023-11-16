@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, StatusBar, FlatList, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
+import Header from "../../lib/Header";
 
 
 const addressesList = [
@@ -34,7 +35,8 @@ const SelectDeliveryAddressScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1 }}>
-                {header()}
+               <Header
+               title="Address"/>
                 <FlatList
                     ListHeaderComponent={
                         <>
@@ -143,16 +145,7 @@ const SelectDeliveryAddressScreen = ({ navigation }) => {
         )
     }
 
-    function header() {
-        return (
-            <View style={styles.headerWrapStyle}>
-                
-                <Text style={{ marginLeft: Sizes.fixPadding - 5.0, flex: 1, ...Fonts.blackColor18SemiBold }}>
-                    Select Delivery Address
-                </Text>
-            </View>
-        )
-    }
+    
 
 }
 

@@ -6,9 +6,10 @@ import FlatlistofSubcride from '../Subcritions/FlatlistofSubcride';
 
 const CheckInfo = ({ navigation, route }) => {
   const { breakfast, lunch, dinner } = route.params.selectedItems
- 
+
 
   const [Breakfast, setBreakfast] = useState(breakfast);
+
   const [Lunch, setLunch] = useState(lunch);
   const [Dinner, setDinner] = useState(dinner);
 
@@ -31,21 +32,22 @@ const CheckInfo = ({ navigation, route }) => {
       <Header title="Items Subscribe" />
 
       <View style={{ margin: Sizes.fixPadding }}>
-      {
-          <Text>{breakfast.length>0?"BreakFast":""}</Text>
+        {
+          <Text>{Breakfast.length > 0 ? "BreakFast" : ""}</Text>
         }
         <FlatlistofSubcride onPress={(item) => handleRemove('breakfast', item)} data={Breakfast} />
         {
-          <Text>{lunch.length>0?"Lunch":""}</Text>
+          <Text>{Lunch.length > 0 ? "Lunch" : ""}</Text>
         }
         <FlatlistofSubcride onPress={(item) => handleRemove('lunch', item)} data={Lunch} />
         {
-          <Text style={{}}>{dinner.length>0?"Dinner":""}</Text>
+          <Text style={{}}>{Dinner.length > 0 ? "Dinner" : ""}</Text>
         }
         <FlatlistofSubcride onPress={(item) => handleRemove('dinner', item)} data={Dinner} />
 
-        <View style={{}}>
+        <View style={{ marginTop: 5 }}>
           <TouchableOpacity
+            onPress={() => navigation.navigate("SelectDeliveryAddress")}
             style={{
               backgroundColor: Colors.primaryColor,
               height: 30,

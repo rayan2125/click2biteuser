@@ -2,7 +2,11 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import React from 'react'
 import { Colors } from '../../constants/styles'
 
+
 const FlatlistofSub = ({ data, onPress, selectedItem }) => {
+    const onclick=()=>{
+        setopepicke(!openpicker)
+    }
     return (
         <>
 
@@ -40,6 +44,7 @@ const FlatlistofSub = ({ data, onPress, selectedItem }) => {
                                     }
                                 </View>
                             </View>
+                            
 
                         </TouchableOpacity>
                     </View>

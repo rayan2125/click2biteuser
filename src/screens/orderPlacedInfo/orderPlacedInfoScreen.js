@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, View, ScrollView, Dimensions, TouchableOpacity, StatusBar, Image, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
+import Header from "../../lib/Header";
 
 const { height } = Dimensions.get('window');
 
@@ -10,6 +11,9 @@ const OrderPlacedInfoScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1 }}>
+                <Header
+                title="Order Confirmations"/>
+                
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {DeliveryBoyIcon()}
                     {orderPlacedInfo()}

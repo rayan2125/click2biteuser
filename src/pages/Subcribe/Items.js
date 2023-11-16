@@ -1,18 +1,19 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { Colors, Sizes } from '../../constants/styles'
+import { useNavigation } from '@react-navigation/native'
 
-const Items = ({search,foodCategories}) => {
-
+const Items = ({ search, foodCategories, }) => {
+    const navigation = useNavigation()
     const [selectedCategory, setSelectedCategory] = useState('all')
-  
+
     const foodMenu = ["all", "Thali", "Combo", "Jain", "SouthIndian", "choka"]
-    
-   
-   
+
+
+
     const handleChangeItems = (item) => {
         setSelectedCategory(item)
-        
+
 
     }
 
@@ -21,27 +22,29 @@ const Items = ({search,foodCategories}) => {
         return selectedCategory === 'all' || item.type === selectedCategory
             && (!search || (item.name && item.name.toLowerCase().includes(search.toLowerCase())));
     });
-    
-      
+
+
 
     return (
         <View style={{ margin: Sizes.fixPadding, }}>
             <FlatList
-               
+
                 horizontal
                 data={foodMenu}
                 renderItem={({ item, index }) => {
-                    const bg = item ==selectedCategory?Colors.primaryColor:Colors.greenColor
+                    const bg = item == selectedCategory ? Colors.primaryColor : Colors.greenColor
                     return (
                         <TouchableOpacity
-                        key={index}
+                            key={index}
                             onPress={() => handleChangeItems(item)}
 
-                            style={{ backgroundColor: bg,width:100,
-                                height:40,
-                                justifyContent:"center",alignItems:"center",
-                             borderRadius: 25,marginHorizontal:Sizes.fixPadding,marginVertical:Sizes.fixPadding  }}>
-                            <Text style={{color:"white"}}>{item}</Text>
+                            style={{
+                                backgroundColor: bg, width: 100,
+                                height: 40,
+                                justifyContent: "center", alignItems: "center",
+                                borderRadius: 25, marginHorizontal: Sizes.fixPadding, marginVertical: Sizes.fixPadding
+                            }}>
+                            <Text style={{ color: "white" }}>{item}</Text>
                         </TouchableOpacity>
                     )
                 }} />
@@ -49,27 +52,31 @@ const Items = ({search,foodCategories}) => {
                 data={filteredFoodItems}
                 // keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => (
-                    <View style={{ backgroundColor:"white",
-                    borderRadius:Sizes.fixPadding,
-                    paddingVertical:Sizes.fixPadding,
-                    paddingHorizontal:Sizes.fixPadding,
-                    margin:Sizes.fixPadding,
-                    
-                    flexDirection: "row",justifyContent:"space-between",
-                    alignItems:"center" }}>
-                        <View style={{flexDirection:"row"}}>
+                    <View style={{
+                        backgroundColor: "white",
+                        borderRadius: Sizes.fixPadding,
+                        paddingVertical: Sizes.fixPadding,
+                        paddingHorizontal: Sizes.fixPadding,
+                        margin: Sizes.fixPadding,
 
-                        <View style={{ backgroundColor: Colors.primaryColor,height:60,width:30,justifyContent:"center",alignItems:"center" }}>
-                            <Text>img</Text>
+                        flexDirection: "row", justifyContent: "space-between",
+                        alignItems: "center"
+                    }}>
+                        <View style={{ flexDirection: "row" }}>
+
+                            <View style={{ backgroundColor: Colors.primaryColor, height: 60, width: 30, justifyContent: "center", alignItems: "center" }}>
+                                <Text>img</Text>
+                            </View>
+                            <View style={{ marginHorizontal: Sizes.fixPadding }}>
+                                <Text>{item.name}</Text>
+                                <Text>Type: {item.type}</Text>
+                                <Text>Price: {item.price}</Text>
+                            </View>
                         </View>
-                        <View style={{marginHorizontal:Sizes.fixPadding}}>
-                            <Text>{item.name}</Text>
-                            <Text>Type: {item.type}</Text>
-                            <Text>Price: {item.price}</Text>
-                        </View>
-                        </View>
-                        <TouchableOpacity style={{backgroundColor:"red",borderRadius:Sizes.fixPadding,width:"25%",height:25,alignItems:"center",justifyContent:"center"}}>
-                            <Text style={{color:"white"}}>Subcribe</Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.push("Subcriptions")}
+                            style={{ backgroundColor: "red", borderRadius: Sizes.fixPadding, width: "25%", height: 25, alignItems: "center", justifyContent: "center" }}>
+                            <Text style={{ color: "white" }}>Subcribe</Text>
                         </TouchableOpacity>
                     </View>
                 )}

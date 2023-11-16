@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import { Colors, Sizes } from '../../constants/styles';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import Header from '../../lib/Header';
 import LinearGradient from 'react-native-linear-gradient';
 import FlatlistofSub from '../../component/Subcritions/FlatlistofSub';
+import SweetAlert from '../../lib/SweetAlert';
+
 
 const breakFast = ["Chole bhature", "Daal baati churma", "Daal puri", "Dal makhani", "Aloo Parantha", "Dhokla", "Idli Sambhar"];
 
@@ -16,6 +17,7 @@ const Subcriptions = ({ navigation }) => {
   const [selectedBreakfast, setSelectedBreakfast] = useState([]);
   const [selectedLunch, setSelectedLunch] = useState([]);
   const [selectedDinner, setSelectedDinner] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
 
 
 
@@ -49,9 +51,21 @@ const Subcriptions = ({ navigation }) => {
       lunch: selectedLunch,
       dinner: selectedDinner,
     };
-    
-    navigation.navigate("CheckInfo",{ selectedItems, handleRemoveItem });
+  
+    // Check if any items are selected
+    if (
+      selectedItems.breakfast.length === 0 &&
+      selectedItems.lunch.length === 0 &&
+      selectedItems.dinner.length === 0
+    ) {
+     
+     setShowAlert(true)
+    } else {
+      
+      navigation.navigate('CheckInfo', { selectedItems, handleRemoveItem });
+    }
   }
+  
   const handleRemoveItem = (category, item) => {
     if (category === 'breakfast') {
       setSelectedBreakfast(selectedBreakfast.filter((selected) => selected !== item));
@@ -65,7 +79,10 @@ const Subcriptions = ({ navigation }) => {
   return (
     <>
       <Header title="Subscriptions" />
-      <View style={{ margin: Sizes.fixPadding * 2 }}>
+        <ScrollView>
+      <View style={{ margin: Sizes.fixPadding * 2,flex:1 }}>
+          
+      
         <View style={{ borderColor: 'black' }}>
           <LinearGradient colors={[Colors.primaryColor, "#F47216"]} style={{ height: 30, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
 
@@ -100,6 +117,18 @@ const Subcriptions = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <View style={{flex:1,position:"absolute",width:'100%',justifyContent:"center",alignItems:"center",bottom:"50%",}}>
+      <View style={{width:"70%",}}>
+      {
+        showAlert &&
+         <SweetAlert showAlert={showAlert} cutAlert={setShowAlert} />
+          
+          
+      }
+      </View>
+
+      </View>
+      </ScrollView>
     </>
   );
 };

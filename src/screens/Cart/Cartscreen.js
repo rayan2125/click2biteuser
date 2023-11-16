@@ -60,13 +60,7 @@ const CartScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
             <StatusBar translucent={false} backgroundColor={Colors.primaryColor} />
             <View style={{ flex: 1, }}>
-                <View style={{ margin: Sizes.fixPadding }}>
-                    <TouchableOpacity onPress={() => navigation.pop()}>
-
-                        <Icon name="arrow-left" color="white" />
-                    </TouchableOpacity>
-
-                </View>
+                
                 {header()}
                 <FlatList
                     ListHeaderComponent={
